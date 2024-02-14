@@ -15,4 +15,9 @@ class DietPlan extends Model
     {
         return $this->belongsTo(Client::class); 
     }
+    public function meals()
+    {
+        return $this->hasMany(Meal::class);
+    }
+
 }

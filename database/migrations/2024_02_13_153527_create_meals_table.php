@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('users_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->date('date');
+            $table->time('time');
+            $table->unsignedInteger('calories');
+            $table->unsignedInteger('carbohydrates')->nullable();
+            $table->unsignedInteger('proteins')->nullable();
+            $table->unsignedInteger('fats')->nullable();
+            $table->unsignedInteger('fiber')->nullable();
             $table->timestamps();
+            
         });
     }
 

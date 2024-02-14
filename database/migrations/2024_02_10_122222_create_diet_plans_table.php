@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('diet_plans', function (Blueprint $table) {
             $table->id();
-            $table->text('food');
+            $table->foreignId('users_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->integer('duration');
+            $table->string('goal');
+            $table->integer('total_calories');
+            $table->integer('carbohydrates_percentage');
+            $table->integer('proteins_percentage');
+            $table->integer('fats_percentage');
             $table->timestamps();
         });
     }
