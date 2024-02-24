@@ -28,7 +28,7 @@ class User extends Authenticatable
 
     public function dietPlan()
     {
-        return $this->hasMany(DietPlan::class);
+        return $this->hasOne(DietPlan::class);
     }
     /**
      * The attributes that should be hidden for serialization.

@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Meal extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'name', 'description', 'duration', 'goal', 'total_calories', 'carbohydrates_percentage', 'proteins_percentage', 'fats_percentage'
     ];
 
-    public function client()
+    public function user()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Users::class);
+    }
+    public function diet_plan()
+    {
+        return $this->belongs(DietPlan::class);
     }
 }
