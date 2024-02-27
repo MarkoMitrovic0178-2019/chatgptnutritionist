@@ -26,3 +26,4 @@ Route::get('/users/{user_id}', [UserController::class, 'show'])->name('users.sho
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/{id}/meals', [UserMealController::class, 'index'])->name('users.meals.index');
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
