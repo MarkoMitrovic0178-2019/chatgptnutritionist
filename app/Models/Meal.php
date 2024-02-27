@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Meal extends Model
 {
     use HasFactory;
@@ -14,10 +15,10 @@ class Meal extends Model
 
     public function user()
     {
-        return $this->belongsTo(Users::class);
+        return $this->belongsTo(User::class);
     }
     public function diet_plan()
     {
-        return $this->belongs(DietPlan::class);
+        return $this->belongsTo(DietPlan::class);
     }
 }

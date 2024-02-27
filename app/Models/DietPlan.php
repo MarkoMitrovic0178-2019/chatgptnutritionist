@@ -13,7 +13,7 @@ class DietPlan extends Model
 
     public function user()
     {
-        return $this->belongsToMany(Users::class); 
+        return $this->belongsToMany(User::class); 
     }
     public function meals()
     {
