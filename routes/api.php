@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserMealController;
 use App\Http\Resources\MealResource;
+use App\Http\Controllers\API\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,4 @@ use App\Http\Resources\MealResource;
 Route::get('/users/{user_id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/{id}/meals', [UserMealController::class, 'index'])->name('users.meals.index');
+Route::post('/register', [AuthController::class, 'register']);
