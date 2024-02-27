@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email','password'
+        'name', 'email','password', 'age','height','weight','activity_level','goals','medical_conditions'
     ];
 
     public function meals()
