@@ -17,11 +17,11 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->date('date');
             $table->time('time');
-            $table->unsignedInteger('calories');
-            $table->unsignedInteger('carbohydrates')->nullable();
-            $table->unsignedInteger('proteins')->nullable();
-            $table->unsignedInteger('fats')->nullable();
-            $table->unsignedInteger('fiber')->nullable();
+            $table->integer('calories');
+            $table->integer('carbohydrates')->nullable();
+            $table->integer('proteins')->nullable();
+            $table->integer('fats')->nullable();
+            $table->integer('fiber')->nullable();
             $table->timestamps();
             
         });

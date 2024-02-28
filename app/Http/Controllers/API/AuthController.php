@@ -24,8 +24,6 @@ class AuthController extends Controller
             'activity_level' => 'string|max:255',
             'goals' => 'string|max:255',
             'medical_conditions' => 'text|max:255'
-            
-
         ]);
 
         if($validator->fails()){

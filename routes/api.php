@@ -22,8 +22,18 @@ use App\Http\Controllers\API\AuthController;
 // Route::get('/meals', [MealController::class, 'index']);
 // Route::get('/meals/{id}', [MealController::class, 'show']);
 // Route::resource('meals',MealController::class);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/profile', function(Request $request) {
+        return auth()->user();
+    });
+    Route::resource('meals', MealController::class)->only(['update','store','destroy']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
 Route::get('/users/{user_id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/{id}/meals', [UserMealController::class, 'index'])->name('users.meals.index');
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+

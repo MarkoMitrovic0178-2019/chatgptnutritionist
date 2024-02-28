@@ -10,7 +10,17 @@ class Meal extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'description', 'duration', 'goal', 'total_calories', 'carbohydrates_percentage', 'proteins_percentage', 'fats_percentage'
+        'name',
+        "description",
+        "date",
+        "time",
+        "calories",
+        "carbohydrates",
+        "proteins",
+        "fats",
+        "fiber",
+        "user_id",
+        "diet_plan_id"
     ];
 
     public function user()
