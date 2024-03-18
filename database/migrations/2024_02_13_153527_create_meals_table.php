@@ -22,8 +22,6 @@ return new class extends Migration
             $table->integer('proteins')->nullable();
             $table->integer('fats')->nullable();
             $table->integer('fiber')->nullable();
-            $table->timestamps();
-            
         });
     }
 

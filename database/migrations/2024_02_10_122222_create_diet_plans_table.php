@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('carbohydrates_percentage');
             $table->integer('proteins_percentage');
             $table->integer('fats_percentage');
-            $table->timestamps();
         });
     }
 

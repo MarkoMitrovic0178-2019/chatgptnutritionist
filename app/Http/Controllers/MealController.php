@@ -16,7 +16,7 @@ class MealController extends Controller
      */
     public function index()
     {
-        $meals=Meal::all();
+        $meals = Meal::all();
         return new MealCollection($meals);
     }
 
@@ -33,36 +33,36 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            "name"=>"required|string|max:255",
-            "description"=>"required",
-            "date"=>"required|date",
-            "time"=>"required|date_format:H:i:s",
-            "calories"=>"required",
-            "carbohydrates"=>"required",
-            "proteins"=>"required",
-            "fats"=>"required",
-            "fiber"=>"required",
-            "diet_plan_id"=>"required"
+        $validator = Validator::make($request->all(), [
+            "name" => "required|string|max:255",
+            "description" => "required",
+            "date" => "required|date",
+            "time" => "required|date_format:H:i:s",
+            "calories" => "required",
+            "carbohydrates" => "required",
+            "proteins" => "required",
+            "fats" => "required",
+            "fiber" => "required",
+            "diet_plan_id" => "required"
         ]);
-        // use Illuminate\Support\Facades\Validator;
-        if($validator->fails()){
+
+        if ($validator->fails()) {
             return response()->json($validator->errors());
         }
 
         $meal = Meal::create([
-            "name"=>$request->name,
-            "description"=>$request->description,
-            "date"=>$request->date,
-            "time"=>$request->time,
-            "calories"=>$request->calories,
-            "carbohydrates"=>$request->carbohydrates,
-            "proteins"=>$request->proteins,
-            "fats"=>$request->fats,
-            "fiber"=>$request->fiber,
-            "user_id"=>Auth::user()->id,
-            "diet_plan_id"=>$request->diet_plan_id,
-            
+            "name" => $request->name,
+            "description" => $request->description,
+            "date" => $request->date,
+            "time" => $request->time,
+            "calories" => $request->calories,
+            "carbohydrates" => $request->carbohydrates,
+            "proteins" => $request->proteins,
+            "fats" => $request->fats,
+            "fiber" => $request->fiber,
+            "user_id" => Auth::user()->id,
+            "diet_plan_id" => $request->diet_plan_id,
+
         ]);
         return response()->json(['Meal created successfully', new MealResource($meal)]);
     }
@@ -89,36 +89,35 @@ class MealController extends Controller
      */
     public function update(Request $request, Meal $meal)
     {
-        $validator = Validator::make($request->all(),[
-            "name"=>"required|string|max:255",
-            "date"=>"required|date",
-            "time"=>"required|time",
-            "calories"=>"required|unsignedInteger",
-            "carbohydrates"=>"required|unsignedInteger",
-            "proteins"=>"required|unsignedInteger",
-            "fats"=>"required|unsignedInteger",
-            "fiber"=>"required|unsignedInteger",
-            "diet_plan_id"=>"required"
+        $validator = Validator::make($request->all(), [
+            "name" => "required|string|max:255",
+            "date" => "required|date",
+            "time" => "required|time",
+            "calories" => "required|unsignedInteger",
+            "carbohydrates" => "required|unsignedInteger",
+            "proteins" => "required|unsignedInteger",
+            "fats" => "required|unsignedInteger",
+            "fiber" => "required|unsignedInteger",
+            "diet_plan_id" => "required"
         ]);
-        
-        if($validator->fails()){
+
+        if ($validator->fails()) {
             return response()->json($validator->errors());
         }
 
-        $meal->name=$request->name;
-        $meal->date=$request->date;
-        $meal->time=$request->time;
-        $meal->calories=$request->calories;
-        $meal->carbohydrates=$request->carbohydrates;
-        $meal->proteins=$request->proteins;
-        $meal->fats=$request->fats;
-        $meal->fiber=$request->fiber;
-        $meal->diet_plan_id=$request->diet_plan_id;
-        
+        $meal->name = $request->name;
+        $meal->date = $request->date;
+        $meal->time = $request->time;
+        $meal->calories = $request->calories;
+        $meal->carbohydrates = $request->carbohydrates;
+        $meal->proteins = $request->proteins;
+        $meal->fats = $request->fats;
+        $meal->fiber = $request->fiber;
+        $meal->diet_plan_id = $request->diet_plan_id;
+
         $meal->save();
 
         return response()->json(['Meal updated successfully', new MealResource($meal)]);
-
     }
 
     /**
