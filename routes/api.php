@@ -8,6 +8,7 @@ use App\Http\Controllers\UserMealController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\DietPlanController;
 use App\Http\Controllers\DietPlanMealController;
+use App\Http\Controllers\UserDietPlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,14 +30,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
     Route::resource('meals', MealController::class)->only(['update', 'store', 'destroy']);
+
     Route::resource('dietPlans', DietPlanController::class)->only(['update', 'store', 'destroy']);
-    Route::resource('users', UserController::class)->only('destroy');
-    Route::resource('users', UserController::class)->only(['index', 'show']);
+    Route::resource('users', UserController::class)->only(['update', 'index', 'show', 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
+Route::get('/dietPlans/goal/{goal}', [DietPlanController::class, 'showByGoal']);
 Route::get('/users/{user_id}', [UserController::class, 'show'])->name('users.show');
+Route::post('users/password', [UserController::class, 'changePassword']);
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/{id}/meals', [UserMealController::class, 'index'])->name('users.meals.index');
+Route::get('/users/dietPlans/{id}', [UserDietPlanController::class, 'index'])->name('users.dietPlans.index');
 Route::resource('meals', MealController::class)->only(['index', 'show']);
 Route::get('/dietPlans/{id}/meals', [DietPlanMealController::class, 'index'])->name('dietPlans.meals.index');
 Route::resource('dietPlans', DietPlanController::class)->only(['index', 'show']);

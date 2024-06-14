@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -25,6 +28,27 @@ class UserController extends Controller
     {
     }
 
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // Hash and update the password
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return response()->json(['message' => 'Password changed successfully'], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -40,7 +64,8 @@ class UserController extends Controller
             "weight" => "required|float",
             "activity_level" => "required|string",
             "goals" => "required|string",
-            "medical_conditions" => "required|text"
+            "medical_conditions" => "required|text",
+            "diet_plan_id" => "required"
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors());
@@ -55,20 +80,21 @@ class UserController extends Controller
             "weight" => $request->weight,
             "activity_level" => $request->activity_level,
             "goals" => $request->goals,
-            "medical_conditions" => $request->medical_conditions
+            "medical_conditions" => $request->medical_conditions,
+            "diet_plan_id" => $request->diet_plan_id
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(User $user_id)
+    public function show(User $user)
     {
-        $user = User::find($user_id);
+
         if (is_null($user)) {
             return response()->json('Data not found', 404);
         }
-        return $user;
+        return new UserResource($user);
     }
 
     /**
@@ -85,33 +111,41 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validator = Validator::make($request->all(), [
-            "name" => "required|string|max:255",
-            "email" => "required|string|max:255",
-            "password" => "required|password",
-            "age" => "required|integer",
-            "gender" => "required|string",
-            "height" => "required|float",
-            "weight" => "required|float",
-            "activity_level" => "required|string",
-            "goals" => "required|string",
-            "medical_conditions" => "required|text"
+            "name" => "string|max:255",
+            "email" => "string|max:255",
+            "password" => "password",
+            "age" => "integer",
+            "gender" => "string",
+            "height" => "numeric",
+            "weight" => "numeric",
+            "activity_level" => "integer",
+            "goals" => "string",
+            "medical_conditions" => "text",
+            "diet_plan_id" => "integer"
         ]);
+
         if ($validator->fails()) {
             return response()->json($validator->errors());
         }
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->age = $request->age;
-        $user->gender = $request->gender;
-        $user->height = $request->height;
-        $user->weight = $request->weight;
-        $user->activity_level = $request->activity_level;
-        $user->goals = $request->goals;
-        $user->medical_conditions = $request->medical_conditions;
+
+        if ($request->name) $user->name = $request->name;
+
+        if ($request->name) $user->email = $request->email;
+        if ($request->password) $user->password = $request->password;
+        if ($request->age) $user->age = $request->age;
+        if ($request->gender) $user->gender = $request->gender;
+        if ($request->height) $user->height = $request->height;
+        if ($request->weight) $user->weight = $request->weight;
+        if ($request->activity_level) $user->activity_level = $request->activity_level;
+        if ($request->goals) $user->goals = $request->goals;
+        if ($request->medical_conditions) $user->medical_conditions = $request->medical_conditions;
+        if ($request->diet_plan_id) $user->diet_plan_id = $request->diet_plan_id;
+
         $user->save();
+
         return response()->json(['User updated successfully', new UserResource($user)]);
     }
+
 
     /**
      * Remove the specified resource from storage.

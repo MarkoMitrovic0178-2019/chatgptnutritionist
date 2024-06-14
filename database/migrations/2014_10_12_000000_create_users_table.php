@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('activity_level')->nullable();
             $table->string('goals')->nullable();
             $table->text('medical_conditions')->nullable();
+            $table->foreignId('diet_plan_id');
             $table->rememberToken();
             $table->timestamps();
         });

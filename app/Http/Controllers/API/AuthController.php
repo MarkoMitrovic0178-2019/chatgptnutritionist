@@ -25,7 +25,8 @@ class AuthController extends Controller
             'weight' => 'float',
             'activity_level' => 'string|max:255',
             'goals' => 'string|max:255',
-            'medical_conditions' => 'text|max:255'
+            'medical_conditions' => 'text|max:255',
+            'diet_plan_id' => 'integer'
         ]);
 
         if ($validator->fails()) {
@@ -43,11 +44,12 @@ class AuthController extends Controller
             'activity_level' => $request->activity_level,
             'goals' => $request->goals,
             'medical_conditions' => $request->medical_conditions,
+            'diet_plan_id' => $request->diet_plan_id
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['user' => new UserResource($user), 'access_token' => $token, 'token_type' => 'Bearer']);
+        return response()->json(['success' => true, 'user' => new UserResource($user), 'access_token' => $token, 'token_type' => 'Bearer']);
     }
 
     public function login(Request $request)
@@ -60,7 +62,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['message' => 'Welcome' . ' ' . $user->name . '.', 'access_token' => $token, 'token_type' => 'Bearer']);
+        return response()->json(['success' => true, 'user_id' => $user->id, 'diet_plan_id' => $user->diet_plan_id, 'message' => 'Welcome' . ' ' . $user->name . '.', 'access_token' => $token, 'token_type' => 'Bearer']);
     }
 
     public function logout(Request $request)

@@ -25,6 +25,7 @@ class UserResource extends JsonResource
             'activity_level' => $this->resource->activity_level,
             'goals' => $this->resource->goals,
             'medical_conditions' => $this->resource->medical_conditions,
+            'diet_plan_id' => $this->resource->diet_plan_id
         ];
     }
 }

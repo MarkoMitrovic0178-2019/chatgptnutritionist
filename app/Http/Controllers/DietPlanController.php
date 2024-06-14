@@ -27,6 +27,18 @@ class DietPlanController extends Controller
         //
     }
 
+    public function showByGoal($goal)
+    {
+        $dietPlans = DietPlan::where('goal', $goal)->get();
+
+        if ($dietPlans->isEmpty()) {
+            return response()->json(['message' => 'No diet plans found with the specified goal.'], 404);
+        }
+
+        return new DietPlanCollection($dietPlans);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */

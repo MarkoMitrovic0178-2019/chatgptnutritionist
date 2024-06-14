@@ -10,6 +10,7 @@ class Meal extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'name',
         "description",
         "date",
@@ -19,7 +20,6 @@ class Meal extends Model
         "proteins",
         "fats",
         "fiber",
-        "user_id",
         "diet_plan_id"
     ];
 

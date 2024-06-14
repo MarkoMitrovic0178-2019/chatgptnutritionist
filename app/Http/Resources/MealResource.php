@@ -29,7 +29,6 @@ class MealResource extends JsonResource
             'proteins' => $this->resource->proteins,
             'fats' => $this->resource->fats,
             'fiber' => $this->resource->fiber,
-            'user' => new UserResource($this->resource->user)
         ];
     }
 }

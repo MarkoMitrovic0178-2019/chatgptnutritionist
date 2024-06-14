@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('meals', function (Blueprint $table) {
-            $table->foreignId('user_id');
             $table->foreignId('diet_plan_id');
         });
     }
@@ -23,7 +22,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('meals', function (Blueprint $table) {
-            $table->dropForeign('user_id');
             $table->dropForeign('diet_plan_id');
         });
     }
